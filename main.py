@@ -42,9 +42,10 @@ def get_fav_tracks():
 
 
 def get_playlist_track_uris(playlist_id):
-    tracks = []
+    
     uri_list = []
     results = spotify.playlist_items(playlist_id, limit=100)
+    tracks = results["items"]
     while results["next"]:
         results = spotify.next(results)
         tracks.extend(results["items"])
