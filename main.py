@@ -1,3 +1,6 @@
+import json
+import os
+from pathlib import Path
 try:
     import spotipy
     from spotipy.oauth2 import SpotifyOAuth
@@ -13,10 +16,15 @@ except ModuleNotFoundError:
     Save the file.
     Run the script.
 """
-
-client_id = ""
-client_secret = ""
-redirect_uri = ""
+os.chdir(Path(__file__).parent.absolute())
+try:
+    with open("config.json", "r") as config:
+        settings = json.load(config)
+except:
+    settings = {}
+client_id  = settings.get("client_id")
+client_secret = settings.get("client_secret")
+redirect_uri = settings.get("redirect_uri")
 
 if not client_id:
     client_id = input("Enter your client ID: ")
